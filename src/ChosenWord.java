@@ -13,12 +13,11 @@ public class ChosenWord {
     }
 
     public String playerGuess(char guess) {
-
-        int index = word.indexOf(guess); // Index of guess. -1 if not in the word
-        if (index != -1) { // Check if the letter is in the word
-            char rightLetter = word.charAt(index);
-            blankWord = blankWord.substring(0, index) +
-                    rightLetter + blankWord.substring(index + 1);
+        for (int i = 0; i < blankWord.length(); i++) { // Check if the letter is in the word
+            if (word.charAt(i) == guess) {
+                blankWord = blankWord.substring(0, i) +
+                        guess + blankWord.substring(i + 1);
+            }
         }
         return blankWord;
     }
