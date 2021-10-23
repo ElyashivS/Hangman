@@ -2,24 +2,22 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
+
         boolean gameOn = true;
-        Words a = new Words(new String[]{"sevenfold", "united"});
-        ChosenWord chosenWord = new ChosenWord(a.getRandomWord());
-        System.out.println(chosenWord.printUnderScores());
+
+        String[] string = new String[]{"likush","united"};
+        Words words = new Words(string);
+        ChosenWord chosenWord = new ChosenWord(words.getRandomWord());
 
         while (gameOn) {
+            System.out.println(chosenWord.getWord());
             Scanner scan = new Scanner(System.in);
-            System.out.println();
             System.out.println("Guess a letter:");
             char guess = scan.next().charAt(0);
-            int index = chosenWord.getWord().indexOf(guess);
-
-            if (index != -1) { // Check if the letter is in the word
-                char rightLetter = chosenWord.getWord().charAt(index);
-                String afterGuess;
-                afterGuess = chosenWord.printUnderScores().substring(0, index) + rightLetter + chosenWord.printUnderScores().substring(index + 1);
-                System.out.println(afterGuess);
-            }
+            chosenWord.playerGuess(guess);
+            gameOn = chosenWord.isGameOn();
         }
+        System.out.println(chosenWord.getWord());
+        System.out.println("Good job :) You win");
     }
 }
