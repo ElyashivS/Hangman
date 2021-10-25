@@ -9,7 +9,7 @@ public class Driver {
             boolean gameOn = true;
 
             // Setup
-            String[] string = new String[]{"Avenged Sevenfold", "aAaBbB"};
+            String[] string = new String[]{"Avenged Sevenfold", "Manchester United", "Arctic Monkeys"};
             Words words = new Words(string);
             ChosenWord chosenWord = new ChosenWord(words.getRandomWord());
             String unChosen = chosenWord.leftLetters();
@@ -22,23 +22,26 @@ public class Driver {
 
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Guess a letter:");
-                // TODO Check input that contain more than 1 letter
-                char guess = scan.next().charAt(0);
+                String temp = scan.next();
+                if (temp.length() > 1) {
+                    System.out.println("Please enter 1 letter");
+                    continue;
+                }
+                char guess = temp.charAt(0);
                 guess = Character.toLowerCase(guess);
-                boolean matches = Pattern.matches("[a-zA-Z]", String.valueOf(guess));
+                boolean matches = Pattern.matches("[a-zA-Z]", String.valueOf(guess)); // Checks validate input
                 if (!matches) {
                     System.out.println("Please enter letter from A to Z");
+                    continue;
                 }
                 else if (unChosen.indexOf(guess) == -1) {
                     System.out.println("You already guessed " + guess + ". Please guess another letter");
-                    counter--;
+                    continue;
                 }
-                chosenWord.playerGuess(guess);
 
-                if (matches) {
-                    unChosen = unChosen.replaceAll(guess + " ", "");
-                    counter++;
-                }
+                chosenWord.playerGuess(guess);
+                unChosen = unChosen.replaceAll(guess + " ", "");
+                counter++;
 
                 if (counter != 0) {
                     System.out.println("It was your " + counter + " guess");
